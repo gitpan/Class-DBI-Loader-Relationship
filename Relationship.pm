@@ -2,7 +2,7 @@ package Class::DBI::Loader::Relationship;
 use 5.006;
 use strict;
 use warnings;
-our $VERSION = '1.0';
+our $VERSION = '1.1';
 our $DEBUG = 0;
 
 1;
@@ -91,10 +91,10 @@ sub relationship {
        return;
     } 
     return "$from_c->$method($mapper => $to_c);\n".
-           ($method ne "has_a" && "$to_c->has_many(".to_PL($from)." => $from_c);\n") 
+           ($method ne "has_a" && "$to_c->has_a(".to_S($from)." => $from_c);\n") 
            if $DEBUG;
     $from_c->$method($mapper => $to_c);
-    $to_c->has_many(to_PL($from) => $from_c) unless $method eq "has_a";
+    $to_c->has_a(to_S($from) => $from_c) unless $method eq "has_a";
 }
 
 1;

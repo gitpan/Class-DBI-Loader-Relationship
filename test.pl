@@ -16,7 +16,7 @@ $Class::DBI::Loader::Relationship::DEBUG = 1;
 
 my $crib1 = <<EOF;
 BeerDB::Brewery->has_many(beers => BeerDB::Beer);
-BeerDB::Beer->has_many(breweries => BeerDB::Brewery);
+BeerDB::Beer->has_a(brewery => BeerDB::Brewery);
 EOF
 sub test { my($text, $crib) = @_; is($fake->relationship($text), $crib, $text)}
 
