@@ -2,7 +2,7 @@ package Class::DBI::Loader::Relationship;
 use 5.006;
 use strict;
 use warnings;
-our $VERSION = '1.1';
+our $VERSION = '1.2';
 our $DEBUG = 0;
 
 1;
@@ -63,10 +63,10 @@ sub relationship {
     my $table_re = join "|", map quotemeta, 
                              sort { length $b <=> length $a } keys %tables;
     croak "Couldn't understand the first object you were talking about"
-        unless $text =~ s/^((a|the)\s+)?($table_re)\s*//i;
+        unless $text =~ s/^((an?|the)\s+)?($table_re)\s*//i;
     my $from = $tables{$3};
     my $from_c = $self->find_class($from);
-    $text =~ s/^(might\s+)?\w+(\s+a)?\s+//i;
+    $text =~ s/^(might\s+)?\w+(\s+an?)?\s+//i;
     my $method = "has_many";
     $method = "has_a" if $2;
     $method = "might_have" if $1;

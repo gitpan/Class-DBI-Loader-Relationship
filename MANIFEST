@@ -4,3 +4,4 @@ MANIFEST
 README
 Relationship.pm
 test.pl
+META.yml                                 Module meta-data (added by MakeMaker)
