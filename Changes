@@ -1,0 +1,6 @@
+Revision history for Perl extension Class::DBI::Loader::Relationship.
+
+0.01  Wed Dec 31 16:44:42 2003
+	- original version; created by h2xs 1.21 with options
+		-AX -n Class::DBI::Loader::Relationship
+
