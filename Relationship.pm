@@ -2,14 +2,14 @@ package Class::DBI::Loader::Relationship;
 use 5.006;
 use strict;
 use warnings;
-our $VERSION = '1.2';
+our $VERSION = '1.3';
 our $DEBUG = 0;
 
 1;
 
 =head1 NAME
 
-Class::DBI::Loader::Relationship - Easier relationship specification in CDBI::L
+Class::DBI::Loader::Relationship - Easier relationship specification in CDBI::Loader
 
 =head1 SYNOPSIS
 
@@ -28,10 +28,21 @@ Now instead of saying
     BeerDB::Pub->has_many(beers => [ BeerDB::Handpump => 'beer' ]);
     BeerDB::Beer->has_many(pubs => [ BeerDB::Handpump => 'pub' ]);
 
+
 Just say
 
     $loader->relationship( "a brewery produces beers" );
     $loader->relationship( "a pub has beers on handpumps" );
+    
+And something like ( upgraded in v1.3 )
+
+    MyApp::Page->has_a( author => 'MyApp::User' );
+    MyApp::Page->has_many( revisions => 'MyApp::PageRevision' );
+    
+Just say
+
+    $loader->relationship( "a page has an user as author" );
+    $loader->relationship( "a page has many page_revisions as revisions" );
 
 =head1 DESCRIPTION
 
@@ -76,6 +87,9 @@ sub relationship {
     my $to = $tables{$1};
     my $to_c = $self->find_class($to);
     my $mapper = $method eq "has_many" ? to_PL($to) : to_S($to);
+	
+    $mapper = $1 if $text =~ s/\s+as\s+(\w+)$//i;
+
     if ($text =~ /($table_re)/i) {
         my $via = $tables{$1}; my $via_c = $self->find_class($via);
         return "$via_c->has_a(".to_S($from)." => $from_c)\n".
@@ -102,6 +116,8 @@ sub relationship {
 =head1 AUTHOR
 
 Simon Cozens, C<simon@cpan.org>
+
+Chunzi, C<chunzi@perlchina.org>
 
 =head1 SEE ALSO
 

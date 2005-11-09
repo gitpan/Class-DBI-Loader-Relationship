@@ -1,5 +1,8 @@
 Revision history for Perl extension Class::DBI::Loader::Relationship.
 
+1.3   Tue Nov  9 09:00:00 GMT 2005
+    - add support for mapper alias (chunzi)
+
 See
 http://cvs.simon-cozens.org/viewcvs.cgi/Class-DBI-Loader-Relationship/
 for full log

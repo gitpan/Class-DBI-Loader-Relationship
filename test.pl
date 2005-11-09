@@ -32,3 +32,5 @@ BeerDB::Beer->has_many(pubs => [ BeerDB::Handpump => pub ])
 EOF
 
 test("pubs have beer on handpumps", $crib2);
+
+test("a brewery has a beer as another_beer", "BeerDB::Brewery->has_a(another_beer => BeerDB::Beer);\n");
